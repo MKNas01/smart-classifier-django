@@ -1,0 +1,394 @@
+/* Base Styles */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2E7D32;
+    --danger-color: #F44336;
+    --warning-color: #FFC107;
+    --info-color: #2196F3;
+    --light-gray: #f5f5f5;
+    --dark-gray: #333;
+    --medium-gray: #757575;
+    --white: #ffffff;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: var(--dark-gray);
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--light-gray);
+}
+
+header h1 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    font-size: 2.5rem;
+}
+
+header p {
+    color: var(--medium-gray);
+    font-size: 1.1rem;
+}
+
+/* Mode Selector */
+.mode-selector {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+    gap: 10px;
+}
+
+.mode-selector button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--light-gray);
+    color: var(--dark-gray);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.mode-selector button.active {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.mode-selector button:hover:not(.active) {
+    background-color: #e0e0e0;
+}
+
+/* Input Sections */
+.input-section {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+}
+
+/* Upload Area */
+.upload-area {
+    border: 2px dashed var(--medium-gray);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+}
+
+.upload-area.highlight {
+    border-color: var(--primary-color);
+    background-color: rgba(76, 175, 80, 0.05);
+}
+
+.upload-instructions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.upload-instructions .icon {
+    font-size: 3rem;
+    color: var(--medium-gray);
+}
+
+.upload-instructions p {
+    color: var(--medium-gray);
+    font-size: 1.1rem;
+}
+
+#uploadBtn, .classify-btn {
+    padding: 10px 25px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+#uploadBtn:hover, .classify-btn:hover {
+    background-color: var(--secondary-color);
+}
+
+#previewImage {
+    max-width: 100%;
+    max-height: 400px;
+    border-radius: var(--border-radius);
+    margin-bottom: 20px;
+    object-fit: contain;
+}
+
+/* Camera Section */
+.camera-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+#cameraFeed {
+    width: 100%;
+    max-width: 600px;
+    border-radius: var(--border-radius);
+    background-color: #000;
+}
+
+.camera-controls {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.camera-controls button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: var(--border-radius);
+    background-color: var(--primary-color);
+    color: var(--white);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.camera-controls button:hover {
+    background-color: var(--secondary-color);
+}
+
+.camera-controls button:disabled {
+    background-color: var(--light-gray);
+    color: var(--medium-gray);
+    cursor: not-allowed;
+}
+
+/* Result Section */
+.result-section {
+    background-color: var(--white);
+    border-radius: var(--border-radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    margin-bottom: 30px;
+    display: none;
+}
+
+.result-section.visible {
+    display: block;
+}
+
+.result-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.result-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin-bottom: 20px;
+}
+
+.result-image {
+    flex: 1;
+    min-width: 300px;
+}
+
+.result-image img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: contain;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.result-details {
+    flex: 2;
+    min-width: 300px;
+}
+
+#materialName {
+    color: var(--dark-gray);
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.harmfulness-meter {
+    margin-bottom: 25px;
+}
+
+.meter-bar {
+    height: 20px;
+    background-color: var(--light-gray);
+    border-radius: 10px;
+    margin-bottom: 5px;
+    overflow: hidden;
+}
+
+.meter-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #4CAF50, #FFC107, #F44336);
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.harmfulness-meter span {
+    font-weight: bold;
+    color: var(--dark-gray);
+}
+
+.info-box {
+    background-color: var(--light-gray);
+    border-radius: var(--border-radius);
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.info-box h4 {
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.info-box p {
+    color: var(--dark-gray);
+}
+
+#newClassificationBtn {
+    display: block;
+    margin: 0 auto;
+    padding: 12px 30px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+#newClassificationBtn:hover {
+    background-color: var(--secondary-color);
+}
+
+/* Loading Overlay */
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.loading-spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid var(--primary-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 20px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Error Message */
+.error-message {
+    color: var(--danger-color);
+    padding: 15px;
+    margin: 20px 0;
+    border: 1px solid var(--danger-color);
+    border-radius: var(--border-radius);
+    background-color: rgba(244, 67, 54, 0.1);
+    text-align: center;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .result-content {
+        flex-direction: column;
+    }
+    
+    .result-image, .result-details {
+        min-width: 100%;
+    }
+    
+    header h1 {
+        font-size: 2rem;
+    }
+    
+    .upload-area {
+        padding: 20px;
+        min-height: 200px;
+    }
+}
+
+/* Harmfulness Classes */
+.harm-0 { width: 0%; }
+.harm-5 { width: 5%; }
+.harm-10 { width: 10%; }
+.harm-15 { width: 15%; }
+.harm-20 { width: 20%; }
+.harm-25 { width: 25%; }
+.harm-30 { width: 30%; }
+.harm-35 { width: 35%; }
+.harm-40 { width: 40%; }
+.harm-45 { width: 45%; }
+.harm-50 { width: 50%; }
+.harm-55 { width: 55%; }
+.harm-60 { width: 60%; }
+.harm-65 { width: 65%; }
+.harm-70 { width: 70%; }
+.harm-75 { width: 75%; }
+.harm-80 { width: 80%; }
+.harm-85 { width: 85%; }
+.harm-90 { width: 90%; }
+.harm-95 { width: 95%; }
+.harm-100 { width: 100%; }

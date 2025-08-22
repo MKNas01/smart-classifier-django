@@ -1,0 +1,17 @@
+/app
+  /migrations
+  /__init__.py
+  /admin.py
+  /apps.py
+  /models.py
+  /tests.py
+  /views.py
+/smart_waste_classification
+  /__pycache__
+  /__init__.py
+  /asgi.py
+  /settings.py
+  /urls.pym
+  /wsgi.py
+/manage.py
+

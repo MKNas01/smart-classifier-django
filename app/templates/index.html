@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Waste Classifier</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Waste Classifier</h1>
+            <p>Upload an image to classify waste materials</p>
+        </header>
+        <div class="mode-selector">
+            <button id="uploadModeBtn" class="active">Image Upload</button>
+            <button id="cameraModeBtn">Real-time Camera</button>
+        </div>
+        <div id="uploadSection" class="input-section">
+            <form method="post" enctype="multipart/form-data" id="uploadForm">
+                {% csrf_token %}
+                <div class="upload-area" id="dropArea">
+                    <input type="file" name="image" id="fileInput" accept="image/*" hidden>
+                    <img id="previewImage" src="#" alt="Preview" style="display: none;">
+                    <div class="upload-instructions">
+                        <span class="icon">📁</span>
+                        <p>Drag & drop an image here or click to browse</p>
+                        <button type="button" id="uploadBtn">Select Image</button>
+                    </div>
+                </div>
+                <button type="submit" class="classify-btn">Classify Image</button>
+            </form>
+        </div>
+
+        <div id="cameraSection" class="input-section" style="display: none;">
+            <div class="camera-container">
+                <video id="cameraFeed" autoplay playsinline></video>
+                <canvas id="cameraCanvas" style="display: none;"></canvas>
+                <div class="camera-controls">
+                    <button id="startCameraBtn">Start Camera</button>
+                    <button id="captureBtn" disabled>Capture & Classify</button>
+                    <button id="stopCameraBtn" disabled>Stop Camera</button>
+                </div>
+            </div>
+        </div>
+
+        {% if error %}
+        <div class="error-message">
+            Error: {{ error }}
+        </div>
+        {% endif %}
+
+        <div id="resultSection" class="result-section {% if classification_result %}visible{% else %}hidden{% endif %}">
+            <h2>Classification Result</h2>
+            <div class="result-content">
+                <div class="result-image">
+                    <img id="resultImage" src="#" alt="Classified Image" style="max-width: 100%;">
+                </div>
+                <div class="result-details">
+                    <h3 id="materialName">
+                        {% if classification_result %}{{ classification_result.class }}{% else %}Material Name{% endif %}
+                    </h3>
+                    <div class="harmfulness-meter">
+                        <div class="meter-bar">
+                            <div id="harmLevel" class="meter-fill 
+                                {% if waste_info %}harm-{{ waste_info.harmfulness }}{% else %}harm-0{% endif %}">
+                            </div>
+                        </div>
+                        <span>Harm Level:</span>
+                        <span id="harmPercentage">
+                            {% if waste_info %}{{ waste_info.harmfulness }}{% else %}0{% endif %}%
+                        </span>
+                    </div>
+                    <div class="info-box">
+                        <h4>Description</h4>
+                        <p id="materialDescription">
+                            {% if waste_info %}{{ waste_info.description }}{% else %}Description will appear here...{% endif %}
+                        </p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Environmental Impact</h4>
+                        <p id="materialImpact">
+                            {% if waste_info %}{{ waste_info.impact }}{% else %}Impact details will appear here...{% endif %}
+                        </p>
+                    </div>
+                    <div class="info-box">
+                        <h4>Hazardousness</h4>
+                        <p id="disposalRecommendation">
+                            {% if classification_result %}{{ classification_result.confidence|floatformat:2 }}%{% else %}0%{% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <button id="newClassificationBtn" onclick="location.reload()">New Classification</button>
+        </div>
+
+        <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+            <div class="loading-spinner"></div>
+            <p>Classifying waste material...</p>
+        </div>
+    </div>
+
+    <script src="{% static 'js/app.js' %}"></script>
+    <script>
+    // Handle file selection preview
+    document.getElementById('fileInput').addEventListener('change', function(e) {
+        if (e.target.files.length) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                document.getElementById('previewImage').src = event.target.result;
+                document.getElementById('previewImage').style.display = 'block';
+            };
+            reader.readAsDataURL(e.target.files[0]);
+        }
+    });
+
+    // Show loading during form submission
+    document.getElementById('uploadForm').addEventListener('submit', function() {
+        document.getElementById('loadingOverlay').style.display = 'flex';
+    });
+    </script>
+</body>
+</html>
